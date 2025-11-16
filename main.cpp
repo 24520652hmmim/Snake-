@@ -11,24 +11,32 @@ using namespace std;
 
 void gotoxy(int column, int line);
 
-struct Point{
-    int x,y;
+struct Point
+{
+    int x, y;
 };
 
-class CONRAN{
+class CONRAN
+{
 public:
     Point A[100];
     int DoDai;
 
-    CONRAN(){
+    CONRAN()
+    {
         DoDai = 3;
-        A[0].x = 10; A[0].y = 10;
-        A[1].x = 11; A[1].y = 10;
-        A[2].x = 12; A[2].y = 10;
+        A[0].x = 10;
+        A[0].y = 10;
+        A[1].x = 11;
+        A[1].y = 10;
+        A[2].x = 12;
+        A[2].y = 10;
     }
 
-    void Ve(Point Qua){
-        for (int i = 0; i < DoDai; i++){
+    void Ve(Point Qua)
+    {
+        for (int i = 0; i < DoDai; i++)
+        {
             gotoxy(A[i].x, A[i].y);
             cout << "X";
         }
@@ -36,16 +44,30 @@ public:
         cout << "*";
     }
 
-    void DiChuyen(int Huong, Point& Qua){
+    void DiChuyen(int Huong, Point &Qua)
+    {
         // dồn thân rắn
         for (int i = DoDai - 1; i > 0; i--)
             A[i] = A[i - 1];
 
         // di chuyển đầu
-        if (Huong == 0) A[0].x++;
-        if (Huong == 1) A[0].y++;
-        if (Huong == 2) A[0].x--;
-        if (Huong == 3) A[0].y--;
+        if (Huong == 0)
+            A[0].x++;
+        if (Huong == 1)
+            A[0].y++;
+        if (Huong == 2)
+            A[0].x--;
+        if (Huong == 3)
+            A[0].y--;
+    }
+    void AnMoi(Point Qua)
+    {
+        if ((A[0].x == Qua.x) && (A[0].y == Qua.y))
+        {
+            DoDai++;                               // rắn dài thêm 1
+            Qua.x = rand() % (MAXX - MINX) + MINX; // tạo mồi mới
+            Qua.y = rand() % (MAXY - MINY) + MINY;
+        }
     }
 };
 
@@ -60,13 +82,19 @@ int main()
     Qua.x = rand() % (MAXX - MINX) + MINX;
     Qua.y = rand() % (MAXY - MINY) + MINY;
 
-    while (1){
-        if (kbhit()){
+    while (1)
+    {
+        if (kbhit())
+        {
             t = getch();
-            if (t == 'a') Huong = 2;
-            if (t == 'w') Huong = 3;
-            if (t == 'd') Huong = 0;
-            if (t == 'x') Huong = 1;
+            if (t == 'a')
+                Huong = 2;
+            if (t == 'w')
+                Huong = 3;
+            if (t == 'd')
+                Huong = 0;
+            if (t == 'x')
+                Huong = 1;
         }
 
         system("cls");
@@ -75,17 +103,18 @@ int main()
         r.DiChuyen(Huong, Qua);
 
         Sleep(300);
+        r.AnMoi(Qua);
     }
 
     return 0;
 }
 
-void gotoxy(int column, int line){
+void gotoxy(int column, int line)
+{
     COORD coord;
     coord.X = column;
     coord.Y = line;
     SetConsoleCursorPosition(
         GetStdHandle(STD_OUTPUT_HANDLE),
-        coord
-    );
+        coord);
 }
