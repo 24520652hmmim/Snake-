@@ -60,6 +60,14 @@ public:
         if (Huong == 3)
             A[0].y--;
     }
+    void VeKhung(){
+    for (int i = MINX ; i<=MAXX ; i++)
+        for (int j = MINX ; j<=MAXY ; j++)
+            if ((i==MINX) || (i==MAXX) || (j==MINY) || (j==MAXY)){
+                gotoxy(i,j);
+                printf("+");
+            }
+}
     void AnMoi(Point Qua)
     {
         if ((A[0].x == Qua.x) && (A[0].y == Qua.y))
@@ -70,6 +78,10 @@ public:
         }
     }
 };
+
+
+
+
 
 int main()
 {
@@ -96,7 +108,8 @@ int main()
             if (t == 'x')
                 Huong = 1;
         }
-
+        system("cls");
+        r.VeKhung();
         system("cls");
 
         r.Ve(Qua);
